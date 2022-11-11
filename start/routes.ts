@@ -21,3 +21,12 @@
 import Route from "@ioc:Adonis/Core/Route";
 
 Route.post("/login", "AuthController.login");
+
+Route.group(() => {
+  Route.post("/create", "UsersController.create");
+
+  Route.group(() => {
+    Route.get("/my-account", "UsersController.index");
+    Route.delete("/delete", "UsersController.delete");
+  }).middleware("auth");
+}).prefix("/user");
