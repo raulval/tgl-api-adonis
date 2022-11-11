@@ -3,6 +3,8 @@ import { DateTime } from "luxon";
 import Game from "./Game";
 
 export default class Cart extends BaseModel {
+  public static table = "cart";
+
   @column({ isPrimary: true })
   public id: number;
 
