@@ -31,3 +31,15 @@ Route.group(() => {
     Route.delete("/delete", "UsersController.delete");
   }).middleware("auth");
 }).prefix("/user");
+
+Route.group(() => {
+  Route.post("/create-game", "GamesController.createGame");
+  Route.delete("/delete-game/:gameId", "GamesController.deleteGame");
+  Route.put("/update-game/:gameId", "GamesController.updateGame");
+  Route.put("/promote-user/:id", "AdminController.promoteUser");
+  Route.delete("/delete-user/:id", "AdminController.deleteUser");
+  Route.get("/all-users", "AdminController.index");
+})
+  .middleware("auth")
+  .prefix("/admin")
+  .middleware("adminVerify");
