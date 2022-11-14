@@ -9,8 +9,11 @@ import {
 import { DateTime } from "luxon";
 import Bet from "./Bet";
 import Cart from "./Cart";
+import GameFilter from "./Filters/GameFilter";
 
 export default class Game extends BaseModel {
+  public static $filter = () => GameFilter;
+
   @column({ isPrimary: true })
   public id: number;
 
