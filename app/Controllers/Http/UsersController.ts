@@ -1,6 +1,8 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
+import validate from "App/Services/validationUser";
 import CreateUserValidator from "App/Validators/CreateUserValidator";
+import UpdateUserValidator from "App/Validators/UpdateUserValidator";
 
 export default class UsersController {
   public async create({ request, auth, response }: HttpContextContract) {
@@ -33,6 +35,29 @@ export default class UsersController {
         queryGame.select("id", "type", "color");
       });
     });
+
+    return user;
+  }
+
+  public async update({ request, auth, response }: HttpContextContract) {
+    const { id } = await auth.use("api").authenticate();
+
+    await request.validate(UpdateUserValidator);
+
+    const user = await User.findByOrFail("id", id);
+
+    const data = request.only(["email", "password", "name"]);
+    const confirmation = request.only(["ConfirmPassword", "oldPassword"]);
+
+    const test = await validate(user, data, confirmation);
+
+    if (!test?.sucess) {
+      return response.status(500).json({ error: { message: test?.message } });
+    }
+
+    await user.merge(data);
+
+    await user.save();
 
     return user;
   }

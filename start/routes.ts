@@ -27,6 +27,7 @@ Route.group(() => {
 
   Route.group(() => {
     Route.get("/my-account", "UsersController.index");
+    Route.put("/update", "UsersController.update");
     Route.delete("/delete", "UsersController.delete");
   }).middleware("auth");
 }).prefix("/user");
