@@ -33,9 +33,9 @@ Route.group(() => {
 }).prefix("/user");
 
 Route.group(() => {
-  Route.post("/create-game", "GamesController.createGame");
-  Route.delete("/delete-game/:gameId", "GamesController.deleteGame");
-  Route.put("/update-game/:gameId", "GamesController.updateGame");
+  Route.post("/create-game", "GamesController.create");
+  Route.delete("/delete-game/:gameId", "GamesController.delete");
+  Route.put("/update-game/:gameId", "GamesController.update");
   Route.put("/promote-user/:id", "AdminController.promoteUser");
   Route.delete("/delete-user/:id", "AdminController.deleteUser");
   Route.get("/all-users", "AdminController.index");
