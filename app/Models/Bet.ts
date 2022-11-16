@@ -1,8 +1,13 @@
+import { Filterable } from "@ioc:Adonis/Addons/LucidFilter";
+import { compose } from "@ioc:Adonis/Core/Helpers";
 import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
 import { DateTime } from "luxon";
+import BetFilter from "./Filters/BetFilter";
 import Game from "./Game";
 
-export default class Bet extends BaseModel {
+export default class Bet extends compose(BaseModel, Filterable) {
+  public static $filter = () => BetFilter;
+
   @column({ isPrimary: true })
   public id: number;
 
