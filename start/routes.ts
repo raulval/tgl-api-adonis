@@ -44,3 +44,12 @@ Route.group(() => {
   .middleware("auth")
   .prefix("/admin")
   .middleware("adminVerify");
+
+Route.group(() => {
+  Route.post("/new-bet/", "BetsController.create");
+  Route.delete("/delete-bet/:betId", "BetsController.delete");
+  Route.put("/update-bet/:gameId/:betId", "BetsController.update");
+  Route.get("/all-bets", "BetsController.index");
+})
+  .middleware("auth")
+  .prefix("/bet");
