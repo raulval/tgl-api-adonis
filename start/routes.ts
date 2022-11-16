@@ -21,6 +21,7 @@
 import Route from "@ioc:Adonis/Core/Route";
 
 Route.post("/login", "AuthController.login");
+Route.get("/cart_games", "CartController.index");
 
 Route.group(() => {
   Route.post("/create", "UsersController.create");
