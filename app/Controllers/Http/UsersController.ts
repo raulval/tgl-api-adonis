@@ -1,5 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
+import { sendConfirmMail } from "App/Services/sendMail";
 import validate from "App/Services/validationUser";
 import CreateUserValidator from "App/Validators/CreateUserValidator";
 import UpdateUserValidator from "App/Validators/UpdateUserValidator";
@@ -22,6 +23,15 @@ export default class UsersController {
     const token = await auth.use("api").attempt(data.email, data.password, {
       expiresIn: "7days",
     });
+
+    try {
+      await sendConfirmMail(user, "email/welcome");
+    } catch (error) {
+      return response.badRequest({
+        message: "Error in send email welcome",
+        originalError: error.message,
+      });
+    }
     return { user, token };
   }
 
