@@ -1,5 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
+import { sendResetMail } from "App/Services/sendMail";
 import PasswordValidator from "App/Validators/PasswordValidator";
 import ResetPasswordValidator from "App/Validators/ResetPasswordValidator";
 import moment from "moment";
@@ -18,6 +19,15 @@ export default class ResetPasswordController {
       user.token_created_at = new Date();
 
       await user.save();
+
+      try {
+        await sendResetMail(user, "email/reset");
+      } catch (error) {
+        return response.badRequest({
+          message: "Error in send email to Reset Password",
+          originalError: error.message,
+        });
+      }
 
       return user;
     } catch (error) {
