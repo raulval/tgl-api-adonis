@@ -53,3 +53,8 @@ Route.group(() => {
 })
   .middleware("auth")
   .prefix("/bet");
+
+Route.group(() => {
+  Route.post("/", "ResetPasswordController.store");
+  Route.post("/:token", "ResetPasswordController.update");
+}).prefix("/reset");
