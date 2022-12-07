@@ -34,6 +34,9 @@ $ node ace db:seed
 
 # Start API
 yarn dev
+
+# Test API
+yarn test
 ```
 
 ## 📝 License
