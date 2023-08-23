@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.string("password", 180).notNullable();
       table.boolean("is_admin").notNullable().defaultTo(false);
       table.string("name").notNullable();
+      table.float("credits").defaultTo(30);
       table.string("token");
       table.timestamp("token_created_at");
 

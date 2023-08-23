@@ -26,6 +26,9 @@ export default class User extends BaseModel {
   public name: string;
 
   @column()
+  public credits: number;
+
+  @column()
   public token: string | undefined;
 
   @column()
