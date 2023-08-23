@@ -3,6 +3,7 @@ import User from "App/Models/User";
 import { sendConfirmMail } from "App/Services/sendMail";
 import validate from "App/Services/validationUser";
 import CreateUserValidator from "App/Validators/CreateUserValidator";
+import PayCreditValidator from "App/Validators/PayCreditValidator";
 import UpdateUserValidator from "App/Validators/UpdateUserValidator";
 
 export default class UsersController {
@@ -80,5 +81,27 @@ export default class UsersController {
     await user.delete();
 
     return "User deleted succssfully";
+  }
+
+  public async payCredits({ request, auth, response }: HttpContextContract) {
+    const { id } = await auth.use("api").authenticate();
+
+    await request.validate(PayCreditValidator);
+
+    const user = await User.findByOrFail("id", id);
+
+    const { credits } = request.only(["credits"]);
+
+    if (user.credits < credits) {
+      return response
+        .status(400)
+        .json({ error: { message: "Insufficient credits" } });
+    }
+
+    user.credits -= credits;
+
+    await user.save();
+
+    return user;
   }
 }

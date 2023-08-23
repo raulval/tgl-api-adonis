@@ -30,6 +30,7 @@ Route.group(() => {
     Route.get("/my-account", "UsersController.index");
     Route.put("/update", "UsersController.update");
     Route.delete("/delete", "UsersController.delete");
+    Route.post("/pay-credits", "UsersController.payCredits");
   }).middleware("auth");
 }).prefix("/user");
 
