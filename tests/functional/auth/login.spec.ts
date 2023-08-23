@@ -5,7 +5,7 @@ test.group("Authentication", () => {
 
   test("should login with valid credentials", async ({ client }) => {
     const response = await client.post(resource).json({
-      email: "admin@luby.com",
+      email: "admin@tgl.com",
       password: "secret",
     });
 

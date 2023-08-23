@@ -7,10 +7,10 @@ export default class extends BaseSeeder {
 
     await User.firstOrCreate({
       id: 1,
-      email: "admin@luby.com",
+      email: "admin@tgl.com",
       password: "secret",
       is_admin: true,
-      name: "LubyTGL",
+      name: "TGL",
     });
   }
 }

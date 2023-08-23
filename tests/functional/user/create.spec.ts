@@ -13,7 +13,7 @@ test.group("Create user", (group) => {
 
   test("should create user with valid data", async ({ client }) => {
     const response = await client.post(resource).json({
-      email: "teste@luby.com",
+      email: "teste@tgl.com",
       password: "secret",
       name: "Teste",
     });
@@ -23,7 +23,7 @@ test.group("Create user", (group) => {
 
   test("should not create user with invalid email", async ({ client }) => {
     const response = await client.post(resource).json({
-      email: "teste@luby",
+      email: "teste@tgl",
       password: "secret",
       name: "Teste",
     });
@@ -42,7 +42,7 @@ test.group("Create user", (group) => {
 
   test("should not create user with existed email", async ({ client }) => {
     const response = await client.post(resource).json({
-      email: "teste@luby.com",
+      email: "teste@tgl.com",
       password: "secret",
       name: "Teste",
     });
