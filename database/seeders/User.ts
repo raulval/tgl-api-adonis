@@ -11,6 +11,7 @@ export default class extends BaseSeeder {
       password: "secret",
       is_admin: true,
       name: "TGL",
+      credits: 100,
     });
   }
 }

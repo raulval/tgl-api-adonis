@@ -11,7 +11,7 @@ export default class extends BaseSeeder {
         description:
           "Escolha 15 números para apostar na lotofácil. Você ganha acertando 11, 12, 13, 14 ou 15 números. São muitas chances de ganhar, e agora você joga de onde estiver!",
         range: 25,
-        price: 2.5,
+        price: 3,
         max_number: 15,
         color: "#7F3992",
       },
@@ -20,7 +20,7 @@ export default class extends BaseSeeder {
         description:
           "Escolha 6 números dos 60 disponíveis na mega-sena. Ganhe com 6, 5 ou 4 acertos. São realizados dois sorteios semanais para você apostar e torcer para ficar milionário.",
         range: 60,
-        price: 4.5,
+        price: 5,
         max_number: 6,
         color: "#01AC66",
       },

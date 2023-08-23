@@ -7,7 +7,7 @@ export default class extends BaseSeeder {
 
     await Cart.firstOrCreate({
       id: 1,
-      minCartValue: 30,
+      minCartValue: 10,
     });
   }
 }
