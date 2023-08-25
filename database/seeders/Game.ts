@@ -9,7 +9,7 @@ export default class extends BaseSeeder {
       {
         type: "Lotofácil",
         description:
-          "Escolha 15 números para apostar na lotofácil. Você ganha acertando 11, 12, 13, 14 ou 15 números. São muitas chances de ganhar, e agora você joga de onde estiver!",
+          "Choose 15 numbers to bet on Lotofácil. You win by matching 11, 12, 13, 14, or 15 numbers. There are many chances to win, and now you can play from wherever you are!",
         range: 25,
         price: 3,
         max_number: 15,
@@ -18,7 +18,7 @@ export default class extends BaseSeeder {
       {
         type: "Mega-Sena",
         description:
-          "Escolha 6 números dos 60 disponíveis na mega-sena. Ganhe com 6, 5 ou 4 acertos. São realizados dois sorteios semanais para você apostar e torcer para ficar milionário.",
+          "Choose 6 numbers out of the 60 available in Mega-Sena. Win with 6, 5, or 4 matches. Two weekly draws are held for you to bet and hope to become a millionaire.",
         range: 60,
         price: 5,
         max_number: 6,
@@ -27,7 +27,7 @@ export default class extends BaseSeeder {
       {
         type: "Quina",
         description:
-          "Escolha 5 números dos 80 disponíveis na quina. 5, 4, 3 ou 2 acertos. São seis sorteios semanais e seis chances de ganhar.",
+          "Select 5 numbers from the 80 available in Quina. Win with 5, 4, 3, or 2 matches. There are six weekly draws and six chances to win.",
         range: 80,
         price: 2,
         max_number: 5,
