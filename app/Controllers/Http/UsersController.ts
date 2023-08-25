@@ -93,9 +93,7 @@ export default class UsersController {
     const { credits } = request.only(["credits"]);
 
     if (user.credits < credits) {
-      return response
-        .status(400)
-        .json({ error: { message: "Insufficient credits" } });
+      return response.badRequest({ message: "Insufficient credits" });
     }
 
     user.credits -= credits;

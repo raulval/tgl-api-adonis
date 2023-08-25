@@ -93,7 +93,7 @@ export default class BetsController {
 
       if (cart && totalPrice < cart?.minCartValue) {
         return response.badRequest({
-          message: `The value min authorized is R$ ${cart?.minCartValue
+          message: `The value min authorized is ${cart?.minCartValue
             .toFixed(2)
             .replace(".", ",")}`,
         });
@@ -104,12 +104,22 @@ export default class BetsController {
         currency: "BRL",
       });
 
+      const user = await User.findByOrFail("id", id);
+
+      if (user.credits < totalPrice) {
+        return response.badRequest({ message: "Insufficient credits" });
+      }
+
+      user.credits -= totalPrice;
+
+      await user.save();
+
       betData = await Bet.createMany(betsToSave);
 
       return response.ok({ bet: betData });
     } catch (error) {
       return response.badRequest({
-        message: "Falha ao fazer aposta",
+        message: "Error on create bet",
         original_error: error.message,
       });
     }
