@@ -116,7 +116,7 @@ export default class BetsController {
 
       betData = await Bet.createMany(betsToSave);
 
-      return response.ok({ bet: betData });
+      return response.ok({ bet: betData, credits: user.credits });
     } catch (error) {
       return response.badRequest({
         message: "Error on create bet",
