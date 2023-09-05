@@ -56,6 +56,12 @@ Route.group(() => {
   .prefix("/bet");
 
 Route.group(() => {
+  Route.get("/lottery/:lottery", "LotteryConsumersController.getResults");
+})
+  .middleware("auth")
+  .prefix("/results");
+
+Route.group(() => {
   Route.post("/", "ResetPasswordController.store");
   Route.post("/:token", "ResetPasswordController.update");
 }).prefix("/reset");
