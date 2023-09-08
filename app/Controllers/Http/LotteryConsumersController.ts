@@ -4,6 +4,7 @@ import { CheerioAPI } from "cheerio";
 import * as cheerio from "cheerio";
 import LotteryResult from "App/Models/LotteryResult";
 import Database from "@ioc:Adonis/Lucid/Database";
+import Game from "App/Models/Game";
 
 export default class LotteryConsumersController {
   private BASE_URL = "https://www.lotericapremiada.com.br/";
@@ -24,6 +25,8 @@ export default class LotteryConsumersController {
       const numbers = this.extractLottoNumbers($);
       const prizes = this.extractLottoPrizes($);
       const totalPrize = this.extractTotalPrize($);
+
+      const game = await Game.findBy("type", name);
 
       await Database.transaction(async (trx) => {
         const existingResult = await LotteryResult.findBy(
@@ -54,6 +57,7 @@ export default class LotteryConsumersController {
         numbers,
         prizes,
         totalPrize,
+        lotteryColor: game?.color,
       };
     } catch (error) {
       console.log(error);
@@ -66,7 +70,11 @@ export default class LotteryConsumersController {
   private extractLottoName($: CheerioAPI): string {
     return $(".h1-resultado")
       .text()
-      .replace(/^Resultado da\s/, "");
+      .replace(/^Resultado da\s/, "") === "Mega Sena"
+      ? "Mega-Sena"
+      : $(".h1-resultado")
+          .text()
+          .replace(/^Resultado da\s/, "");
   }
 
   private extractLottoDate($: CheerioAPI): string {
