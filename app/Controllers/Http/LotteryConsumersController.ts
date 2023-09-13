@@ -1,4 +1,5 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Env from "@ioc:Adonis/Core/Env";
 import axios from "axios";
 import { CheerioAPI } from "cheerio";
 import * as cheerio from "cheerio";
@@ -7,7 +8,7 @@ import Database from "@ioc:Adonis/Lucid/Database";
 import Game from "App/Models/Game";
 
 export default class LotteryConsumersController {
-  private BASE_URL = "https://www.lotericapremiada.com.br/";
+  private BASE_URL = Env.get("LOTTERY_RESULTS_BASE_URL");
 
   public async getResults({ params, response }: HttpContextContract) {
     const { lottery } = params;
