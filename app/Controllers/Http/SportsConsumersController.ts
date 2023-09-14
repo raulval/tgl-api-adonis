@@ -3,6 +3,7 @@ import Env from "@ioc:Adonis/Core/Env";
 import axios from "axios";
 import * as cheerio from "cheerio";
 import Match from "App/Models/Match";
+import League from "App/Models/League";
 
 interface IMatch {
   data: Data;
@@ -110,7 +111,7 @@ export default class SportsConsumersController {
   }
 
   public async getMatches({ request, response }: HttpContextContract) {
-    const league = request.qs().league;
+    const league: string = request.qs().league;
     const BASE_URL = Env.get(`SPORTS_${league}_BASE_URL`);
 
     if (!BASE_URL) {
@@ -135,7 +136,7 @@ export default class SportsConsumersController {
         });
       }
 
-      const leagueId = league === "BSA" ? 1 : 2;
+      const leagueId = (await League.findByOrFail("shortName", league)).id;
 
       const matches = data.blocks[0].events.map(async (match: Event) => {
         try {

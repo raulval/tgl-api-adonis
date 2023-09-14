@@ -7,12 +7,14 @@ export default class extends BaseSeeder {
       {
         id: 1,
         name: "Brasileirão - Série A",
+        shortName: "BSA",
         startDate: "2023-04-15",
         endDate: "2023-12-03",
       },
       {
         id: 2,
         name: "UEFA Champions League",
+        shortName: "CL",
         startDate: "2023-09-19",
         endDate: "2024-06-01",
       },

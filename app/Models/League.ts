@@ -10,6 +10,9 @@ export default class League extends BaseModel {
   public name: string;
 
   @column()
+  public shortName: string;
+
+  @column()
   public startDate: string;
 
   @column()
