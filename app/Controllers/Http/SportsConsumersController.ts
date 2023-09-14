@@ -92,7 +92,8 @@ export default class SportsConsumersController {
         home: matchData.participants[0]?.name,
         guest: matchData.participants[1]?.name,
       };
-      await existingMatch.save();
+      existingMatch.merge(existingMatch);
+      // await existingMatch.save();
       return existingMatch;
     } else {
       const newMatch = new Match();
