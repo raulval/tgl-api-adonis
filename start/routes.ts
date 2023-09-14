@@ -38,6 +38,9 @@ Route.group(() => {
   Route.post("/create-game", "GamesController.create");
   Route.delete("/delete-game/:gameId", "GamesController.delete");
   Route.put("/update-game/:gameId", "GamesController.update");
+  Route.post("/create-league", "LeaguesController.create");
+  Route.delete("/delete-league/:leagueId", "LeaguesController.delete");
+  Route.put("/update-league/:leagueId", "LeaguesController.update");
   Route.put("/promote-user/:id", "AdminController.promoteUser");
   Route.delete("/delete-user/:id", "AdminController.deleteUser");
   Route.get("/all-users", "AdminController.index");
@@ -48,7 +51,6 @@ Route.group(() => {
 
 Route.group(() => {
   Route.post("/new-bet/", "BetsController.create");
-  // Route.post("/new-sport-bet/", "SportsConsumersController.create");
   Route.delete("/delete-bet/:betId", "BetsController.delete");
   Route.put("/update-bet/:gameId/:betId", "BetsController.update");
   Route.get("/all-bets", "BetsController.index");
@@ -64,6 +66,7 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get("/matches", "SportsConsumersController.getMatches");
+  Route.get("/leagues", "LeaguesController.index");
 })
   .middleware("auth")
   .prefix("/sports");
