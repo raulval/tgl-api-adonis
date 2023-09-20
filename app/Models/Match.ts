@@ -1,6 +1,14 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import {
+  BaseModel,
+  BelongsTo,
+  HasMany,
+  belongsTo,
+  column,
+  hasMany,
+} from "@ioc:Adonis/Lucid/Orm";
 import League from "./League";
+import SportBet from "./SportBet";
 
 export default class Match extends BaseModel {
   @column({ isPrimary: true })
@@ -31,4 +39,9 @@ export default class Match extends BaseModel {
     foreignKey: "leagueId",
   })
   public league: BelongsTo<typeof League>;
+
+  @hasMany(() => SportBet, {
+    foreignKey: "match_id",
+  })
+  public match: HasMany<typeof SportBet>;
 }

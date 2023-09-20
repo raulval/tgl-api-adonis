@@ -8,6 +8,7 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 import { DateTime } from "luxon";
 import Bet from "./Bet";
+import SportBet from "./SportBet";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -44,6 +45,11 @@ export default class User extends BaseModel {
     foreignKey: "user_id",
   })
   public bets: HasMany<typeof Bet>;
+
+  @hasMany(() => SportBet, {
+    foreignKey: "user_id",
+  })
+  public sportBets: HasMany<typeof SportBet>;
 
   @beforeSave()
   public static async hashPassword(user: User) {
