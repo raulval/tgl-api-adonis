@@ -67,6 +67,8 @@ Route.group(() => {
 Route.group(() => {
   Route.get("/matches", "SportsConsumersController.getMatches");
   Route.get("/leagues", "LeaguesController.index");
+  Route.post("/new-bet", "SportBetsController.createSportBet");
+  Route.get("/bets", "SportBetsController.listSportBets");
 })
   .middleware("auth")
   .prefix("/sports");

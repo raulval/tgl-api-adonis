@@ -30,6 +30,7 @@ export default class BetsController {
         "created_at"
       )
       .where("user_id", id)
+      //@ts-ignore
       .whereHas("type", (scope) => scope.filter(request.qs()))
       .preload("type", (scope) => scope.select("id", "type", "color"));
 
