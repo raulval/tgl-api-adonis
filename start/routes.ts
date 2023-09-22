@@ -60,6 +60,7 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get("/lottery/:lottery", "LotteryConsumersController.getResults");
+  Route.get("/sports/:league", "SportResultsController.listResults");
 })
   .middleware("auth")
   .prefix("/results");
