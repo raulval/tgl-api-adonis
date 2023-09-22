@@ -37,7 +37,12 @@ export default class BetsController {
     return bets;
   }
 
-  public async create({ request, auth, response }: HttpContextContract) {
+  public async create({
+    request,
+    auth,
+    response,
+    logger,
+  }: HttpContextContract) {
     const { id } = await auth.use("api").authenticate();
     let betData: Bet[];
     let betsToSave: IBetsToSave[] = [];
@@ -119,8 +124,9 @@ export default class BetsController {
 
       return response.ok({ bet: betData, credits: user.credits });
     } catch (error) {
+      logger.error("Error on create lottery bet %o", { user: id });
       return response.badRequest({
-        message: "Error on create bet",
+        message: "Error on create lottery bet",
         original_error: error.message,
       });
     }

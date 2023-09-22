@@ -7,14 +7,14 @@ export default class SportBetsController {
     request,
     auth,
     response,
+    logger,
   }: HttpContextContract) {
+    const user = await auth.use("api").authenticate();
+
+    if (!user) {
+      return response.status(401).send({ message: "User not authenticated" });
+    }
     try {
-      const user = await auth.use("api").authenticate();
-
-      if (!user) {
-        return response.status(401).send({ message: "User not authenticated" });
-      }
-
       const data = request.only(["match_id", "picked", "odd", "amount"]);
 
       const match = await Match.findBy("id", data.match_id);
@@ -59,20 +59,25 @@ export default class SportBetsController {
         .status(201)
         .send({ sportBet, match, credits: user.credits });
     } catch (error) {
+      logger.error("Error on create sport bet %o", { user: user.id });
       return response
         .status(500)
         .send({ message: "Error on create sport bet" });
     }
   }
 
-  public async listSportBets({ auth, response, request }: HttpContextContract) {
+  public async listSportBets({
+    auth,
+    response,
+    request,
+    logger,
+  }: HttpContextContract) {
+    const user = await auth.use("api").authenticate();
+
+    if (!user) {
+      return response.unauthorized();
+    }
     try {
-      const user = await auth.use("api").authenticate();
-
-      if (!user) {
-        return response.unauthorized();
-      }
-
       const sportBetsQuery = SportBet.query()
         .where("userId", user.id)
         .preload("match", (query) => {
@@ -93,6 +98,7 @@ export default class SportBetsController {
 
       return response.ok(sportBets);
     } catch (error) {
+      logger.error("Error on create sport bet %o", { user: user.id });
       return response.internalServerError({
         message: "Error on list sport bets",
       });
