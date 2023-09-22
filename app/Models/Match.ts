@@ -3,12 +3,15 @@ import {
   BaseModel,
   BelongsTo,
   HasMany,
+  HasOne,
   belongsTo,
   column,
   hasMany,
+  hasOne,
 } from "@ioc:Adonis/Lucid/Orm";
 import League from "./League";
 import SportBet from "./SportBet";
+import SportResult from "./SportResult";
 
 export default class Match extends BaseModel {
   @column({ isPrimary: true })
@@ -41,7 +44,12 @@ export default class Match extends BaseModel {
   public league: BelongsTo<typeof League>;
 
   @hasMany(() => SportBet, {
-    foreignKey: "match_id",
+    foreignKey: "matchId",
   })
-  public match: HasMany<typeof SportBet>;
+  public sportBet: HasMany<typeof SportBet>;
+
+  @hasOne(() => SportResult, {
+    foreignKey: "matchId",
+  })
+  public sportResult: HasOne<typeof SportResult>;
 }
