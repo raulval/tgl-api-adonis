@@ -6,8 +6,17 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
-      table.string("match_id");
-      table.integer("user_id");
+      table
+        .string("match_id")
+        .notNullable()
+        .references("id")
+        .inTable("matches");
+      table
+        .integer("user_id")
+        .notNullable()
+        .unsigned()
+        .references("id")
+        .inTable("users");
       table.string("picked");
       table.float("odd");
       table.float("amount");

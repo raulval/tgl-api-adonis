@@ -5,12 +5,17 @@ export default class extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.string("id");
+      table.string("id").primary();
       table.string("name");
       table.bigInteger("start_time");
       table.json("participants");
       table.json("odds");
-      table.integer("league_id");
+      table
+        .integer("league_id")
+        .notNullable()
+        .unsigned()
+        .references("id")
+        .inTable("leagues");
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
