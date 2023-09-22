@@ -93,7 +93,6 @@ export default class SportsConsumersController {
         guest: matchData.participants[1]?.name,
       };
       existingMatch.merge(existingMatch);
-      // await existingMatch.save();
       return existingMatch;
     } else {
       const newMatch = new Match();
@@ -111,7 +110,7 @@ export default class SportsConsumersController {
     }
   }
 
-  public async getMatches({ request, response }: HttpContextContract) {
+  public async getMatches({ request, response, logger }: HttpContextContract) {
     const league: string = request.qs().league;
     const BASE_URL = Env.get(`SPORTS_${league}_BASE_URL`);
 
@@ -155,7 +154,8 @@ export default class SportsConsumersController {
 
       return { matches: savedMatches.filter((match) => !!match) };
     } catch (error) {
-      console.error(error);
+      logger.error("Error while fetching and updating sports matches.");
+      console.error(error.code);
       return response.status(500).json({
         message: "Error while fetching and updating sports matches.",
       });
