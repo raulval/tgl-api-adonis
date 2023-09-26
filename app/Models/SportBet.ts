@@ -24,6 +24,9 @@ export default class SportBet extends BaseModel {
   @column()
   public earning: number;
 
+  @column()
+  public status: "pending" | "won" | "lost";
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 
