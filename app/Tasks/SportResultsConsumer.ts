@@ -4,6 +4,9 @@ import Logger from "@ioc:Adonis/Core/Logger";
 import axios from "axios";
 import SportResult from "App/Models/SportResult";
 import Match from "App/Models/Match";
+import SportBet from "App/Models/SportBet";
+import User from "App/Models/User";
+import Database from "@ioc:Adonis/Lucid/Database";
 let dice = require("fast-dice-coefficient");
 
 export default class SportResultsConsumer extends BaseTask {
@@ -127,6 +130,56 @@ export default class SportResultsConsumer extends BaseTask {
       Logger.info("Sport results saved successfully");
     } catch (error) {
       Logger.error("Error updating sport results:");
+      console.log(error);
+    }
+
+    try {
+      await Database.transaction(async (trx) => {
+        const winningBets = await SportBet.query()
+          .where("status", "pending")
+          .whereNotNull("matchId")
+          .useTransaction(trx);
+
+        for (const bet of winningBets) {
+          const sportResult = await SportResult.findBy(
+            "matchId",
+            bet.matchId,
+            trx
+          );
+          if (!sportResult) continue;
+          const match = await Match.findByOrFail("id", bet.matchId, trx);
+
+          if (
+            sportResult &&
+            ((sportResult.winner === "HOME_TEAM" &&
+              bet.picked === match?.participants.home) ||
+              (sportResult.winner === "AWAY_TEAM" &&
+                bet.picked === match?.participants.guest) ||
+              (sportResult.winner === "DRAW" && bet.picked === "draw"))
+          ) {
+            Logger.info("Bet paid: %o", {
+              user: bet.userId,
+              amount: bet.earning,
+            });
+
+            const user = await User.findOrFail(bet.userId, trx);
+            user.credits += bet.earning;
+            await user.save();
+
+            bet.status = "won";
+            await bet.save();
+          } else {
+            bet.status = "lost";
+            await bet.save();
+          }
+        }
+
+        trx.commit();
+      });
+
+      Logger.info("Sport Bets paid successfully");
+    } catch (error) {
+      Logger.error("Error paying sport bets:");
       console.log(error);
     }
   }
