@@ -64,7 +64,7 @@ export default class SportResultsConsumer extends BaseTask {
           new Date(utcDate).getTime()
         );
 
-        let matchId: string | undefined = undefined;
+        let matchId: number | undefined = undefined;
 
         if (matches && matches.length > 1) {
           const similaritiesHome = matches.map((match) => {

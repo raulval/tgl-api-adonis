@@ -5,12 +5,12 @@ export default class extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.bigInteger("id").primary();
+      table.increments("id").primary();
       table.string("winner");
       table.json("score");
       table.json("participants");
       table.bigInteger("started_date");
-      table.string("match_id").references("id").inTable("matches");
+      table.integer("match_id").unsigned().references("id").inTable("matches");
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
