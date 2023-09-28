@@ -19,9 +19,11 @@ export default class SportBetsController {
 
       const match = await Match.findBy("id", data.match_id);
 
-      const bet = await SportBet.findBy("match_id", data.match_id);
+      const bet = await SportBet.query()
+        .where("matchId", data.match_id)
+        .where("userId", user.id);
 
-      if (bet) {
+      if (bet.length > 0) {
         return response.status(400).send({
           message: "You have already betted on this match",
         });
