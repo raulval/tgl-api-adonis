@@ -7,7 +7,7 @@ export default class SportBet extends BaseModel {
   public id: number;
 
   @column()
-  public matchId: string;
+  public matchId: number;
 
   @column()
   public userId: number;

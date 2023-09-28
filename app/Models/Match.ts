@@ -15,7 +15,7 @@ import SportResult from "./SportResult";
 
 export default class Match extends BaseModel {
   @column({ isPrimary: true })
-  public id: string;
+  public id: number;
 
   @column()
   public name: string;

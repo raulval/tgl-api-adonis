@@ -7,7 +7,7 @@ export default class SportResult extends BaseModel {
   public id: number;
 
   @column()
-  public winner: string;
+  public winner: "HOME_TEAM" | "DRAW" | "AWAY_TEAM";
 
   @column()
   public score: { home: number; guest: number };
@@ -22,7 +22,7 @@ export default class SportResult extends BaseModel {
   public startedDate: number;
 
   @column()
-  public matchId: string;
+  public matchId: number;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
