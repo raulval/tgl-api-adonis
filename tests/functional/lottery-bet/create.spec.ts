@@ -3,8 +3,8 @@ import { test } from "@japa/runner";
 import User from "App/Models/User";
 import { bets } from "App/Services/betsTestHelper";
 
-test.group("Create bet", (group) => {
-  group.tap((test) => test.tags(["@bet_create"]));
+test.group("Create lottery bet", (group) => {
+  group.tap((test) => test.tags(["@lottery_bet_create"]));
 
   group.each.setup(async () => {
     await Database.beginGlobalTransaction();
@@ -55,7 +55,7 @@ test.group("Create bet", (group) => {
 
     response.assertStatus(400);
     response.assertBodyContains({
-      message: "The value min authorized is R$ 30,00",
+      message: "The value min authorized is 10,00",
     });
   });
 });
