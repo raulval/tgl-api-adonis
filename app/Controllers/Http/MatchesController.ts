@@ -3,55 +3,6 @@ import Match from "App/Models/Match";
 import League from "App/Models/League";
 import MatchValidator from "App/Validators/MatchValidator";
 
-interface IMatch {
-  data: Data;
-}
-
-interface Data {
-  blocks: Block[];
-}
-
-interface Block {
-  shortName: string;
-  events: Event[];
-}
-
-interface Event {
-  sportId: string;
-  shortName: string;
-  totalMarketsAvailable: number;
-  regionName: string;
-  leagueDescription: string;
-  id: string;
-  name: string;
-  startTime: number;
-  markets: Market[];
-  participants: Participant[];
-}
-
-interface Market {
-  id: string;
-  uniqueId: string;
-  name: string;
-  type: string;
-  handicap: number;
-  marketCloseTimeMillis: number;
-  renderingLayout: number;
-  selections: Selection[];
-}
-
-interface Selection {
-  id: string;
-  name: string;
-  fullName?: string;
-  shortName: string;
-  price: number;
-}
-
-interface Participant {
-  name: string;
-}
-
 export default class MatchesController {
   public async createMatch({
     auth,
@@ -91,6 +42,11 @@ export default class MatchesController {
 
       return response.created(match);
     } catch (error) {
+      if (error.messages) {
+        return response.status(422).json({
+          message: error.messages.errors[0].message,
+        });
+      }
       logger.error("Error while creating sports matches: %o", { error: error });
       return response.status(500).json({
         message: "Error while creating sports matches.",
