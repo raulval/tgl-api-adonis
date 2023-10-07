@@ -45,6 +45,7 @@ Route.group(() => {
   Route.put("/promote-user/:id", "AdminController.promoteUser");
   Route.delete("/delete-user/:id", "AdminController.deleteUser");
   Route.get("/all-users", "AdminController.index");
+  Route.post("/create-lottery-result", "LotteryResultsController.createResult");
   Route.post("/create-sport-result", "SportResultsController.createResult");
 })
   .middleware("auth")
@@ -61,7 +62,7 @@ Route.group(() => {
   .prefix("/bet");
 
 Route.group(() => {
-  Route.get("/lottery/:lottery", "LotteryConsumersController.getResults");
+  Route.get("/lottery/:lottery", "LotteryResultsController.getResults");
   Route.get("/sports/:league", "SportResultsController.listResults");
 })
   .middleware("auth")
