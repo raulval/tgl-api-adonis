@@ -76,11 +76,21 @@ export default class SportResultsController {
       const sportResultsWithMatchIdQuery = SportResult.query()
         .where("league", league)
         .whereNotNull("matchId")
+        .where(
+          "startedDate",
+          ">=",
+          new Date().getTime() - 7 * 24 * 60 * 60 * 1000
+        ) // 7 days
         .orderBy("createdAt", "desc");
 
       const sportResultsNullMatchIdQuery = SportResult.query()
         .where("league", league)
         .whereNull("matchId")
+        .where(
+          "startedDate",
+          ">=",
+          new Date().getTime() - 7 * 24 * 60 * 60 * 1000
+        ) // 7 days
         .orderBy("createdAt", "desc");
 
       const [sportResultsWithMatchId, sportResultsNullMatchId] =

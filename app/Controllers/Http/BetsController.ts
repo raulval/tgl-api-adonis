@@ -99,7 +99,7 @@ export default class BetsController {
 
       if (cart && totalPrice < cart?.minCartValue) {
         return response.badRequest({
-          message: `The value min authorized is ${cart?.minCartValue
+          message: `The minimum authorized value is ${cart?.minCartValue
             .toFixed(2)
             .replace(".", ",")}`,
         });

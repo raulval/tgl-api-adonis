@@ -7,9 +7,9 @@ export async function sendConfirmMail(
 ): Promise<void> {
   await Mail.send((message) => {
     message
-      .from("tcl@email.com")
+      .from("tgl@email.com")
       .to(user.email)
-      .subject("Confirmation instructions for TCL account")
+      .subject("Confirmation instructions for TGL account")
       .htmlView(template, { user });
   });
 }
@@ -20,9 +20,9 @@ export async function sendResetMail(
 ): Promise<void> {
   await Mail.send((message) => {
     message
-      .from("tcl@email.com")
+      .from("tgl@email.com")
       .to(user.email)
-      .subject("Reset your TCL account password")
+      .subject("Reset your TGL account password")
       .htmlView(template, { user });
   });
 }
