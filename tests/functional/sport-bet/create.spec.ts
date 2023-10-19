@@ -15,7 +15,7 @@ test.group("Create sport bet", (group) => {
 
   const createMatch = async () => {
     const match = await Match.create({
-      id: 100,
+      id: 120,
       name: "Team A - Team B",
       participants: {
         home: "Team A",
@@ -35,7 +35,7 @@ test.group("Create sport bet", (group) => {
 
   const createStartedMatch = async () => {
     const match = await Match.create({
-      id: 10,
+      id: 999,
       name: "Team A - Team B",
       participants: {
         home: "Team A",
@@ -83,7 +83,7 @@ test.group("Create sport bet", (group) => {
     const response = await client
       .post(resource)
       .json({
-        match_id: 100,
+        match_id: 120,
         picked: "Team A",
         odd: 1.5,
         amount: 200,
@@ -106,7 +106,7 @@ test.group("Create sport bet", (group) => {
     await client
       .post(resource)
       .json({
-        match_id: 100,
+        match_id: 120,
         picked: "Team A",
         odd: 1.5,
         amount: 1,
@@ -116,7 +116,7 @@ test.group("Create sport bet", (group) => {
     const response = await client
       .post(resource)
       .json({
-        match_id: 100,
+        match_id: 120,
         picked: "Team A",
         odd: 1.5,
         amount: 1,
@@ -137,7 +137,7 @@ test.group("Create sport bet", (group) => {
     const response = await client
       .post(resource)
       .json({
-        match_id: 100,
+        match_id: 120,
         picked: "Team A",
         odd: 1.5,
         amount: 10,
@@ -157,7 +157,7 @@ test.group("Create sport bet", (group) => {
     const response = await client
       .post(resource)
       .json({
-        match_id: 10,
+        match_id: 999,
         picked: "Team A",
         odd: 1.5,
         amount: 1,

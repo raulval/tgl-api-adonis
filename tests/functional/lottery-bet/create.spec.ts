@@ -55,7 +55,7 @@ test.group("Create lottery bet", (group) => {
 
     response.assertStatus(400);
     response.assertBodyContains({
-      message: "The value min authorized is 10,00",
+      message: "The minimum authorized value is 10,00",
     });
   });
 });

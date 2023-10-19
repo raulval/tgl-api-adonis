@@ -15,7 +15,7 @@ test.group("Match list", (group) => {
 
   const createMatch = async () => {
     const match = await Match.create({
-      id: 100,
+      id: 110,
       name: "Team A - Team B",
       participants: {
         home: "Team A",
