@@ -1,6 +1,6 @@
 # TGL API AdonisJS
 
-This project was created for [LabLuby's](https://luby.com.br/labluby/) AdonisJS module
+This project was initially developed as part of the [LabLuby's AdonisJS module](https://luby.com.br/labluby/) and has been modified to meet the specific requirements of my Thesis. These adaptations were implemented to deepen the analysis and research necessary within the context of my academic study.
 
 ## 🧪 Technologies
 
